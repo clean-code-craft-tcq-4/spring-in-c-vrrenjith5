@@ -49,5 +49,4 @@ void check_and_alert(float maxthershold, alerter_funcptr alerters[], Stats compu
       alerters[0]();
       alerters[1]();
     }
-
 }
