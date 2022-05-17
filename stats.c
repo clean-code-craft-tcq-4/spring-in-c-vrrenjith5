@@ -40,13 +40,13 @@ void ledAlerter()
     printf("led alert");
 }
 
-void check_and_alert(float maxthershold, alerter_funcptr* funtab, struct Stats computed)
+void check_and_alert(float maxthershold, alerter_funcptr alerters[], Stats computed)
 {
     emailAlertCallCount = 0;
     ledAlertCallCount = 0;
     if (computed.max > maxthershold){
-      funtab[0]();
-      funtab[1]();
+      alerters[0]();
+      alerters[1]();
     }
 
 }
