@@ -12,7 +12,5 @@ typedef void (*alerter_funcptr)();
 void check_and_alert(float maxthershold, alerter_funcptr alerters[], Stats computed);
 extern int emailAlertCallCount;
 extern int ledAlertCallCount;
-void emailAlerter();
-void ledAlerter();
 
 #endif

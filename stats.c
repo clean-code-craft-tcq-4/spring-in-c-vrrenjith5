@@ -3,9 +3,6 @@
 #include <stdio.h>
 #include "stats.h"
 
-int emailAlertCallCount;
-int ledAlertCallCount;
-
 Stats compute_statistics(const float* numberset, int setlength) {
     Stats s;
     s.average = NAN;
@@ -29,22 +26,10 @@ Stats compute_statistics(const float* numberset, int setlength) {
     return s;
 }
 
-void emailAlerter()
-{
-    emailAlertCallCount ++;
-    printf("email alert");
-}
-
-void ledAlerter()
-{
-    ledAlertCallCount ++;
-    printf("led alert");
-}
-
 void check_and_alert(float maxthershold, alerter_funcptr alerters[], Stats computed)
 {
-    emailAlertCallCount = 0;
-    ledAlertCallCount = 0;
+  emailAlertCallCount = 0;
+  ledAlertCallCount = 0;	
     if (computed.max > maxthershold){
       alerters[0]();
       alerters[1]();
