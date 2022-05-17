@@ -1,37 +1,10 @@
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 
 #include "catch.hpp"
-//#include "stats.h"
+#include "stats.h"
 
 #include <stdlib.h>
 #include <math.h>
-
-struct Stats{
-	float average;
-	float min;
-	float max;
-};
-
-struct Stats compute_statistics(const float* numberset, int setlength) {
-    struct Stats s;
-    s.average = 0;
-    s.min = 0;
-    s.max = 0;
-    float sum = 0;
-    sum = s.min = s.max = numberset[0];
-
-    for(int i =1; i<setlength; i++) {
-      if(s.min > numberset[i]) {
-		s.min = numberset[i];
-      }
-      if(s.max < numberset[i]) {
-		s.max = numberset[i];
-      }
-      sum = sum + numberset[i];
-    }
-    s.average = sum/setlength;
-    return s;
-}
 
 TEST_CASE("reports average, minimum and maximum") {
     float numberset[] = {1.5, 8.9, 3.2, 4.5};
@@ -41,21 +14,24 @@ TEST_CASE("reports average, minimum and maximum") {
     REQUIRE(abs(computedStats.average - 4.525) < epsilon);
     REQUIRE(abs(computedStats.max - 8.9) < epsilon);
     REQUIRE(abs(computedStats.min - 1.5) < epsilon);
+
+    REQUIRE(isnan(computedStats.average) == false);
+    REQUIRE(isnan(computedStats.max) == false);
+    REQUIRE(isnan(computedStats.min) == false);
 }
 
 TEST_CASE("average is NaN for empty array") {
     Stats computedStats = compute_statistics(0, 0);
-    //All fields of computedStats (average, max, min) must be
-    //NAN (not-a-number), as defined in math.h
-    
-    //Design the REQUIRE statement here.
-    //Use https://stackoverflow.com/questions/1923837/how-to-use-nan-and-inf-in-c
+
+    REQUIRE(isnan(computedStats.average) == true);
+    REQUIRE(isnan(computedStats.max) == true);
+    REQUIRE(isnan(computedStats.min) == true);
 }
 
 TEST_CASE("raises alerts when max is greater than threshold") {
     // create additional .c and .h files
     // containing the emailAlerter, ledAlerter functions
-    alerter_funcptr alerters[] = {emailAlerter, ledAlerter};
+    alerter_funcptr alerters[] = {emailAlerter,ledAlerter};
 
     float numberset[] = {99.8, 34.2, 4.5};
     int setlength = sizeof(numberset) / sizeof(numberset[0]);
