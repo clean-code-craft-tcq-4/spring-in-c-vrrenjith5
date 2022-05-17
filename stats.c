@@ -1,12 +1,13 @@
 #include <math.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "stats.h"
 
 int emailAlertCallCount;
 int ledAlertCallCount;
 
-struct Stats compute_statistics(const float* numberset, int setlength) {
-    struct Stats s;
+Stats compute_statistics(const float* numberset, int setlength) {
+    Stats s;
     s.average = NAN;
     s.min = NAN;
     s.max = NAN;
