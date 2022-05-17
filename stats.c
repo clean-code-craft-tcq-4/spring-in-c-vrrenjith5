@@ -1,25 +1,52 @@
-#include "stats.h"
+#include <math.h>
+#include <stdlib.h>
+#include <stdio.h>
+
+int emailAlertCallCount;
+int ledAlertCallCount;
 
 struct Stats compute_statistics(const float* numberset, int setlength) {
     struct Stats s;
-    s.average = 0;
-    s.min = 0;
-    s.max = 0;  
-    float sum = 0;
-    sum = s.min = s.max = numberset[0];
-    
-    for(int i =1; i<setlength; i++) {
+    s.average = NAN;
+    s.min = NAN;
+    s.max = NAN;
+
+    if((numberset) && (setlength > 0))
+    {
+     float sum = s.min = s.max = numberset[0];
+     for(int i =1; i<setlength; i++) {
       if(s.min > numberset[i]) {
 		s.min = numberset[i];
       }
       if(s.max < numberset[i]) {
 		s.max = numberset[i];
-      }    
+      }
       sum = sum + numberset[i];
     }
-    s.average = sum/setlength;
+     s.average = sum/setlength;
+    }
     return s;
 }
 
-int emailAlertCallCount = 0;
-int ledAlertCallCount = 0;
+void emailAlerter()
+{
+    emailAlertCallCount ++;
+    printf("email alert");
+}
+
+void ledAlerter()
+{
+    ledAlertCallCount ++;
+    printf("led alert");
+}
+
+void check_and_alert(float maxthershold, alerter_funcptr* funtab, struct Stats computed)
+{
+    emailAlertCallCount = 0;
+    ledAlertCallCount = 0;
+    if (computed.max > maxthershold){
+      funtab[0]();
+      funtab[1]();
+    }
+
+}
