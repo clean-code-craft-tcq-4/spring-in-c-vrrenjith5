@@ -29,18 +29,6 @@ Stats compute_statistics(const float* numberset, int setlength) {
     return s;
 }
 
-void emailAlerter()
-{
-    emailAlertCallCount ++;
-    printf("email alert");
-}
-
-void ledAlerter()
-{
-    ledAlertCallCount ++;
-    printf("led alert");
-}
-
 void check_and_alert(float maxthershold, alerter_funcptr alerters[], Stats computed)
 {
     emailAlertCallCount = 0;
