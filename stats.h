@@ -1,11 +1,11 @@
 #ifndef __STATS_H
 #define __STATS_H
 
-typedef struct{
+struct Stats{
   float average;
   float min;
   float max;
-}Stats;
+};
 
 Stats compute_statistics(const float* numberset, int setlength);
 typedef void (*alerter_funcptr)();
